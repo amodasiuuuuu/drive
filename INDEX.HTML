@@ -1,0 +1,930 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>DRIVE — Автомобили</title>
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: #080808;
+            color: white;
+        }
+
+        /* ================= HEADER ================= */
+
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 75px;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            padding: 0 7%;
+
+            background: rgba(8, 8, 8, 0.92);
+            backdrop-filter: blur(15px);
+
+            border-bottom: 1px solid rgba(255,255,255,0.08);
+
+            z-index: 1000;
+        }
+
+        .logo {
+            font-size: 27px;
+            font-weight: 900;
+            letter-spacing: 3px;
+        }
+
+        .logo span {
+            color: #e50914;
+        }
+
+        nav {
+            display: flex;
+            gap: 35px;
+        }
+
+        nav button {
+            background: none;
+            border: none;
+            color: #aaa;
+
+            font-size: 15px;
+            cursor: pointer;
+
+            transition: 0.3s;
+        }
+
+        nav button:hover,
+        nav button.active {
+            color: white;
+        }
+
+        /* ================= PAGES ================= */
+
+        .page {
+            display: none;
+            min-height: 100vh;
+            padding-top: 75px;
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        /* ================= HERO ================= */
+
+        .hero {
+            min-height: calc(100vh - 75px);
+
+            display: flex;
+            align-items: center;
+
+            padding: 80px 7%;
+
+            background:
+                linear-gradient(
+                    90deg,
+                    rgba(0,0,0,0.95),
+                    rgba(0,0,0,0.55),
+                    rgba(0,0,0,0.1)
+                ),
+                url("https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=2000&q=90");
+
+            background-size: cover;
+            background-position: center;
+        }
+
+        .hero-content {
+            max-width: 650px;
+        }
+
+        .hero h1 {
+            font-size: clamp(55px, 8vw, 110px);
+            line-height: 0.9;
+            margin-bottom: 30px;
+            letter-spacing: -5px;
+        }
+
+        .hero h1 span {
+            color: #e50914;
+        }
+
+        .hero p {
+            color: #bbb;
+            font-size: 18px;
+            line-height: 1.7;
+            margin-bottom: 35px;
+        }
+
+        .red-button {
+            display: inline-block;
+
+            padding: 16px 30px;
+
+            background: #e50914;
+            color: white;
+
+            text-decoration: none;
+
+            font-weight: bold;
+
+            border-radius: 4px;
+
+            transition: 0.3s;
+        }
+
+        .red-button:hover {
+            background: #ff1a25;
+            transform: translateY(-3px);
+        }
+
+        /* ================= SECTIONS ================= */
+
+        .container {
+            width: 86%;
+            max-width: 1400px;
+            margin: auto;
+            padding: 90px 0;
+        }
+
+        .section-title {
+            margin-bottom: 50px;
+        }
+
+        .section-title h2 {
+            font-size: 45px;
+            margin-bottom: 10px;
+        }
+
+        .section-title p {
+            color: #777;
+        }
+
+        /* ================= CARS ================= */
+
+        .cars-grid {
+            display: grid;
+
+            grid-template-columns:
+                repeat(auto-fit, minmax(280px, 1fr));
+
+            gap: 25px;
+        }
+
+        .car-card {
+            background: #111;
+            border: 1px solid #202020;
+
+            overflow: hidden;
+
+            cursor: pointer;
+
+            transition: 0.35s;
+
+            border-radius: 8px;
+        }
+
+        .car-card:hover {
+            transform: translateY(-8px);
+            border-color: #e50914;
+
+            box-shadow:
+                0 20px 50px rgba(229, 9, 20, 0.12);
+        }
+
+        .car-image {
+            height: 230px;
+            overflow: hidden;
+        }
+
+        .car-image img {
+            width: 100%;
+            height: 100%;
+
+            object-fit: cover;
+
+            transition: 0.5s;
+        }
+
+        .car-card:hover img {
+            transform: scale(1.08);
+        }
+
+        .car-info {
+            padding: 25px;
+        }
+
+        .car-info h3 {
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+
+        .car-info p {
+            color: #777;
+            line-height: 1.5;
+            margin-bottom: 20px;
+        }
+
+        .car-price {
+            color: #e50914;
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .view-car {
+            margin-top: 20px;
+
+            color: white;
+
+            font-size: 14px;
+            font-weight: bold;
+
+            display: inline-block;
+
+            border-bottom: 1px solid #e50914;
+
+            padding-bottom: 5px;
+        }
+
+        /* ================= NEWS ================= */
+
+        .news-grid {
+            display: grid;
+
+            grid-template-columns:
+                repeat(auto-fit, minmax(300px, 1fr));
+
+            gap: 25px;
+        }
+
+        .news-card {
+            background: #111;
+            border: 1px solid #222;
+
+            padding: 30px;
+
+            border-radius: 8px;
+        }
+
+        .news-card span {
+            color: #e50914;
+            font-size: 13px;
+        }
+
+        .news-card h3 {
+            font-size: 23px;
+            margin: 15px 0;
+        }
+
+        .news-card p {
+            color: #888;
+            line-height: 1.7;
+        }
+
+        /* ================= ABOUT ================= */
+
+        .about {
+            max-width: 900px;
+        }
+
+        .about h2 {
+            font-size: 55px;
+            margin-bottom: 30px;
+        }
+
+        .about p {
+            color: #aaa;
+            line-height: 1.9;
+            font-size: 18px;
+        }
+
+        .stats {
+            display: grid;
+
+            grid-template-columns:
+                repeat(auto-fit, minmax(180px, 1fr));
+
+            gap: 20px;
+
+            margin-top: 50px;
+        }
+
+        .stat {
+            background: #111;
+            border: 1px solid #222;
+
+            padding: 30px;
+
+            text-align: center;
+        }
+
+        .stat strong {
+            display: block;
+
+            font-size: 35px;
+
+            color: #e50914;
+
+            margin-bottom: 10px;
+        }
+
+        .stat span {
+            color: #777;
+        }
+
+        /* ================= FOOTER ================= */
+
+        footer {
+            border-top: 1px solid #222;
+
+            padding: 40px 7%;
+
+            color: #555;
+
+            text-align: center;
+        }
+
+        /* ================= MOBILE ================= */
+
+        @media(max-width: 700px) {
+
+            header {
+                padding: 0 20px;
+            }
+
+            nav {
+                gap: 15px;
+            }
+
+            nav button {
+                font-size: 12px;
+            }
+
+            .hero {
+                padding: 50px 20px;
+            }
+
+            .container {
+                width: 90%;
+            }
+
+            .hero h1 {
+                letter-spacing: -3px;
+            }
+
+            .section-title h2 {
+                font-size: 35px;
+            }
+        }
+
+    </style>
+</head>
+
+<body>
+
+<!-- ================= HEADER ================= -->
+
+<header>
+
+    <div class="logo">
+        DR<span>I</span>VE
+    </div>
+
+    <nav>
+
+        <button
+            class="active"
+            onclick="openPage('home', this)">
+            Главная
+        </button>
+
+        <button
+            onclick="openPage('cars', this)">
+            Автомобили
+        </button>
+
+        <button
+            onclick="openPage('news', this)">
+            Новости
+        </button>
+
+        <button
+            onclick="openPage('about', this)">
+            О проекте
+        </button>
+
+    </nav>
+
+</header>
+
+
+<!-- ================= HOME ================= -->
+
+<section id="home" class="page active">
+
+    <div class="hero">
+
+        <div class="hero-content">
+
+            <h1>
+                DRIVE<br>
+                <span>YOUR</span><br>
+                PASSION
+            </h1>
+
+            <p>
+                Мир автомобилей в одном месте.
+                Спортивные автомобили, роскошные модели,
+                характеристики, цены и последние новости
+                автомобильной индустрии.
+            </p>
+
+            <a
+                href="#"
+                class="red-button"
+                onclick="openPage('cars'); return false;">
+                Смотреть автомобили
+            </a>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ================= CARS ================= -->
+
+<section id="cars" class="page">
+
+    <div class="container">
+
+        <div class="section-title">
+
+            <h2>Автомобили</h2>
+
+            <p>
+                Выберите автомобиль,
+                чтобы посмотреть подробную информацию.
+            </p>
+
+        </div>
+
+
+        <div class="cars-grid">
+
+
+            <!-- BMW -->
+
+            <div
+                class="car-card"
+                onclick="openCar('bmw-m4')">
+
+                <div class="car-image">
+
+                    <img
+                        src="https://images.unsplash.com/photo-1555215695-3004980ad54e?auto=format&fit=crop&w=1200&q=85"
+                        alt="BMW M4">
+
+                </div>
+
+                <div class="car-info">
+
+                    <h3>BMW M4</h3>
+
+                    <p>
+                        Спортивное купе BMW M с
+                        мощным двигателем и агрессивным дизайном.
+                    </p>
+
+                    <div class="car-price">
+                        от €98 500
+                    </div>
+
+                    <div class="view-car">
+                        Подробнее →
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- Lamborghini -->
+
+            <div
+                class="car-card"
+                onclick="openCar('lamborghini-huracan')">
+
+                <div class="car-image">
+
+                    <img
+                        src="https://images.unsplash.com/photo-1544829099-b9a0c07fad1a?auto=format&fit=crop&w=1200&q=85"
+                        alt="Lamborghini">
+
+                </div>
+
+                <div class="car-info">
+
+                    <h3>Lamborghini Huracán</h3>
+
+                    <p>
+                        Итальянский суперкар с атмосферным
+                        V10 и невероятной динамикой.
+                    </p>
+
+                    <div class="car-price">
+                        Цена по запросу
+                    </div>
+
+                    <div class="view-car">
+                        Подробнее →
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- Ferrari -->
+
+            <div
+                class="car-card"
+                onclick="openCar('ferrari-296')">
+
+                <div class="car-image">
+
+                    <img
+                        src="https://images.unsplash.com/photo-1592198084033-aade902d1aae?auto=format&fit=crop&w=1200&q=85"
+                        alt="Ferrari">
+
+                </div>
+
+                <div class="car-info">
+
+                    <h3>Ferrari 296 GTB</h3>
+
+                    <p>
+                        Современный Ferrari с гибридной
+                        силовой установкой и V6.
+                    </p>
+
+                    <div class="car-price">
+                        Цена по запросу
+                    </div>
+
+                    <div class="view-car">
+                        Подробнее →
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- Porsche -->
+
+            <div
+                class="car-card"
+                onclick="openCar('porsche-911')">
+
+                <div class="car-image">
+
+                    <img
+                        src="https://images.unsplash.com/photo-1503736334956-4c8f8e92946d?auto=format&fit=crop&w=1200&q=85"
+                        alt="Porsche 911">
+
+                </div>
+
+                <div class="car-info">
+
+                    <h3>Porsche 911</h3>
+
+                    <p>
+                        Легендарное спортивное купе,
+                        сочетающее комфорт и динамику.
+                    </p>
+
+                    <div class="car-price">
+                        Цена по запросу
+                    </div>
+
+                    <div class="view-car">
+                        Подробнее →
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- Audi -->
+
+            <div
+                class="car-card"
+                onclick="openCar('audi-r8')">
+
+                <div class="car-image">
+
+                    <img
+                        src="https://images.unsplash.com/photo-1614200179396-2bdb77ebf81b?auto=format&fit=crop&w=1200&q=85"
+                        alt="Audi R8">
+
+                </div>
+
+                <div class="car-info">
+
+                    <h3>Audi R8</h3>
+
+                    <p>
+                        Среднемоторный суперкар Audi
+                        с фирменным V10.
+                    </p>
+
+                    <div class="car-price">
+                        Цена по запросу
+                    </div>
+
+                    <div class="view-car">
+                        Подробнее →
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- Mercedes -->
+
+            <div
+                class="car-card"
+                onclick="openCar('mercedes-amg')">
+
+                <div class="car-image">
+
+                    <img
+                        src="https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?auto=format&fit=crop&w=1200&q=85"
+                        alt="Mercedes AMG">
+
+                </div>
+
+                <div class="car-info">
+
+                    <h3>Mercedes-AMG GT</h3>
+
+                    <p>
+                        Спортивный автомобиль Mercedes-AMG
+                        с мощным V8.
+                    </p>
+
+                    <div class="car-price">
+                        Цена по запросу
+                    </div>
+
+                    <div class="view-car">
+                        Подробнее →
+                    </div>
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ================= NEWS ================= -->
+
+<section id="news" class="page">
+
+    <div class="container">
+
+        <div class="section-title">
+
+            <h2>Новости</h2>
+
+            <p>
+                Последние события автомобильного мира.
+            </p>
+
+        </div>
+
+
+        <div class="news-grid">
+
+
+            <div class="news-card">
+
+                <span>АВТОМИР</span>
+
+                <h3>
+                    Новое поколение спортивных автомобилей
+                </h3>
+
+                <p>
+                    Производители продолжают развивать
+                    технологии, увеличивая мощность и
+                    одновременно снижая расход топлива.
+                </p>
+
+            </div>
+
+
+            <div class="news-card">
+
+                <span>TECHNOLOGY</span>
+
+                <h3>
+                    Электромобили становятся мощнее
+                </h3>
+
+                <p>
+                    Современные электромобили способны
+                    конкурировать со спортивными автомобилями
+                    по динамике разгона.
+                </p>
+
+            </div>
+
+
+            <div class="news-card">
+
+                <span>SUPERCARS</span>
+
+                <h3>
+                    Эра новых суперкаров
+                </h3>
+
+                <p>
+                    Производители экспериментируют с
+                    гибридными технологиями и новыми
+                    силовыми установками.
+                </p>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ================= ABOUT ================= -->
+
+<section id="about" class="page">
+
+    <div class="container">
+
+        <div class="about">
+
+            <h2>
+                О проекте
+            </h2>
+
+            <p>
+                DRIVE — это автомобильный проект,
+                посвящённый спортивным автомобилям,
+                суперкарам и современным технологиям.
+            </p>
+
+            <br>
+
+            <p>
+                Здесь можно узнать характеристики
+                автомобилей, сравнить модели и
+                познакомиться с новостями автомобильного мира.
+            </p>
+
+
+            <div class="stats">
+
+                <div class="stat">
+
+                    <strong>6+</strong>
+
+                    <span>
+                        Автомобилей
+                    </span>
+
+                </div>
+
+
+                <div class="stat">
+
+                    <strong>4K</strong>
+
+                    <span>
+                        Качественные изображения
+                    </span>
+
+                </div>
+
+
+                <div class="stat">
+
+                    <strong>24/7</strong>
+
+                    <span>
+                        Доступ к проекту
+                    </span>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ================= FOOTER ================= -->
+
+<footer>
+
+    © 2026 DRIVE — Automotive Project
+
+</footer>
+
+
+<script>
+
+    /* ================= NAVIGATION ================= */
+
+    function openPage(pageName, button) {
+
+        const pages = document.querySelectorAll(".page");
+
+        pages.forEach(page => {
+            page.classList.remove("active");
+        });
+
+
+        const selectedPage =
+            document.getElementById(pageName);
+
+        if (selectedPage) {
+            selectedPage.classList.add("active");
+        }
+
+
+        const buttons =
+            document.querySelectorAll("nav button");
+
+        buttons.forEach(btn => {
+            btn.classList.remove("active");
+        });
+
+
+        if (button) {
+            button.classList.add("active");
+        }
+
+
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth"
+        });
+
+    }
+
+
+    /* ================= OPEN CAR ================= */
+
+    function openCar(car) {
+
+        window.location.href =
+            "car.html?car=" + car;
+
+    }
+
+</script>
+
+</body>
+</html>

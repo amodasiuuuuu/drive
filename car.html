@@ -1,0 +1,1143 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0">
+
+    <title>Автомобиль — DRIVE</title>
+
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+
+        body {
+
+            font-family:
+                Arial,
+                Helvetica,
+                sans-serif;
+
+            background: #080808;
+
+            color: white;
+
+        }
+
+
+        /* ================= HEADER ================= */
+
+        header {
+
+            position: fixed;
+
+            top: 0;
+            left: 0;
+
+            width: 100%;
+
+            height: 75px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            padding: 0 7%;
+
+            background:
+                rgba(8,8,8,0.94);
+
+            backdrop-filter: blur(15px);
+
+            border-bottom:
+                1px solid rgba(255,255,255,0.08);
+
+            z-index: 1000;
+
+        }
+
+
+        .logo {
+
+            font-size: 27px;
+
+            font-weight: 900;
+
+            letter-spacing: 3px;
+
+        }
+
+
+        .logo span {
+
+            color: #e50914;
+
+        }
+
+
+        .back {
+
+            color: #aaa;
+
+            text-decoration: none;
+
+            font-size: 14px;
+
+            transition: 0.3s;
+
+        }
+
+
+        .back:hover {
+
+            color: white;
+
+        }
+
+
+        /* ================= CONTENT ================= */
+
+        main {
+
+            padding-top: 75px;
+
+        }
+
+
+        .car-hero {
+
+            min-height: 600px;
+
+            display: grid;
+
+            grid-template-columns: 1.2fr 1fr;
+
+            align-items: center;
+
+            gap: 60px;
+
+            padding: 80px 7%;
+
+        }
+
+
+        .car-photo {
+
+            height: 520px;
+
+            border-radius: 10px;
+
+            overflow: hidden;
+
+            background: #111;
+
+        }
+
+
+        .car-photo img {
+
+            width: 100%;
+
+            height: 100%;
+
+            object-fit: cover;
+
+        }
+
+
+        .car-content h1 {
+
+            font-size:
+                clamp(45px, 6vw, 80px);
+
+            line-height: 0.95;
+
+            margin-bottom: 25px;
+
+        }
+
+
+        .category {
+
+            color: #e50914;
+
+            font-size: 13px;
+
+            letter-spacing: 3px;
+
+            font-weight: bold;
+
+            margin-bottom: 20px;
+
+        }
+
+
+        .description {
+
+            color: #999;
+
+            line-height: 1.8;
+
+            font-size: 17px;
+
+            margin-bottom: 30px;
+
+        }
+
+
+        .price {
+
+            font-size: 30px;
+
+            font-weight: bold;
+
+            margin-bottom: 25px;
+
+        }
+
+
+        .buy-button {
+
+            display: inline-block;
+
+            padding: 16px 30px;
+
+            background: #e50914;
+
+            color: white;
+
+            text-decoration: none;
+
+            font-weight: bold;
+
+            border-radius: 4px;
+
+            transition: 0.3s;
+
+        }
+
+
+        .buy-button:hover {
+
+            background: #ff1a25;
+
+            transform: translateY(-3px);
+
+        }
+
+
+        /* ================= SPECS ================= */
+
+        .spec-section {
+
+            width: 86%;
+
+            max-width: 1400px;
+
+            margin: auto;
+
+            padding: 70px 0;
+
+            border-top:
+                1px solid #222;
+
+        }
+
+
+        .spec-section h2 {
+
+            font-size: 40px;
+
+            margin-bottom: 40px;
+
+        }
+
+
+        .specs {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(4, 1fr);
+
+            gap: 15px;
+
+        }
+
+
+        .spec {
+
+            background: #111;
+
+            border:
+                1px solid #222;
+
+            padding: 25px;
+
+            border-radius: 6px;
+
+        }
+
+
+        .spec span {
+
+            display: block;
+
+            color: #666;
+
+            font-size: 13px;
+
+            margin-bottom: 10px;
+
+        }
+
+
+        .spec strong {
+
+            font-size: 20px;
+
+        }
+
+
+        /* ================= DESCRIPTION ================= */
+
+        .full-description {
+
+            width: 86%;
+
+            max-width: 1000px;
+
+            margin: auto;
+
+            padding: 70px 0;
+
+        }
+
+
+        .full-description h2 {
+
+            font-size: 40px;
+
+            margin-bottom: 30px;
+
+        }
+
+
+        .full-description p {
+
+            color: #999;
+
+            line-height: 2;
+
+            font-size: 17px;
+
+        }
+
+
+        /* ================= FOOTER ================= */
+
+        footer {
+
+            border-top:
+                1px solid #222;
+
+            padding: 40px;
+
+            text-align: center;
+
+            color: #555;
+
+            margin-top: 50px;
+
+        }
+
+
+        /* ================= MOBILE ================= */
+
+        @media(max-width: 900px) {
+
+            .car-hero {
+
+                grid-template-columns: 1fr;
+
+            }
+
+
+            .car-photo {
+
+                height: 350px;
+
+            }
+
+
+            .specs {
+
+                grid-template-columns:
+                    repeat(2, 1fr);
+
+            }
+
+        }
+
+
+        @media(max-width: 500px) {
+
+            header {
+
+                padding: 0 20px;
+
+            }
+
+
+            .car-hero {
+
+                padding:
+                    50px 20px;
+
+            }
+
+
+            .spec-section,
+            .full-description {
+
+                width: 90%;
+
+            }
+
+
+            .specs {
+
+                grid-template-columns: 1fr;
+
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<!-- ================= HEADER ================= -->
+
+<header>
+
+    <div class="logo">
+        DR<span>I</span>VE
+    </div>
+
+
+    <a
+        href="index.html"
+        class="back">
+
+        ← Вернуться к автомобилям
+
+    </a>
+
+</header>
+
+
+<main>
+
+
+    <!-- ================= HERO ================= -->
+
+    <section class="car-hero">
+
+
+        <div class="car-photo">
+
+            <img
+                id="carImage"
+                src=""
+                alt="Автомобиль">
+
+        </div>
+
+
+        <div class="car-content">
+
+
+            <div
+                class="category"
+                id="carCategory">
+
+                SPORTS CAR
+
+            </div>
+
+
+            <h1 id="carName">
+
+                Автомобиль
+
+            </h1>
+
+
+            <p
+                class="description"
+                id="carDescription">
+
+            </p>
+
+
+            <div
+                class="price"
+                id="carPrice">
+
+            </div>
+
+
+            <a
+                href="#"
+                class="buy-button"
+                onclick="contactDealer(); return false;">
+
+                Узнать о покупке
+
+            </a>
+
+
+        </div>
+
+    </section>
+
+
+
+    <!-- ================= SPECS ================= -->
+
+    <section class="spec-section">
+
+
+        <h2>
+            Характеристики
+        </h2>
+
+
+        <div class="specs">
+
+
+            <div class="spec">
+
+                <span>
+                    Мощность
+                </span>
+
+                <strong id="power">
+                    —
+                </strong>
+
+            </div>
+
+
+            <div class="spec">
+
+                <span>
+                    0–100 км/ч
+                </span>
+
+                <strong id="acceleration">
+                    —
+                </strong>
+
+            </div>
+
+
+            <div class="spec">
+
+                <span>
+                    Максимальная скорость
+                </span>
+
+                <strong id="topSpeed">
+                    —
+                </strong>
+
+            </div>
+
+
+            <div class="spec">
+
+                <span>
+                    Двигатель
+                </span>
+
+                <strong id="engine">
+                    —
+                </strong>
+
+            </div>
+
+
+            <div class="spec">
+
+                <span>
+                    Крутящий момент
+                </span>
+
+                <strong id="torque">
+                    —
+                </strong>
+
+            </div>
+
+
+            <div class="spec">
+
+                <span>
+                    Коробка
+                </span>
+
+                <strong id="gearbox">
+                    —
+                </strong>
+
+            </div>
+
+
+            <div class="spec">
+
+                <span>
+                    Привод
+                </span>
+
+                <strong id="drive">
+                    —
+                </strong>
+
+            </div>
+
+
+            <div class="spec">
+
+                <span>
+                    Топливо
+                </span>
+
+                <strong id="fuel">
+                    —
+                </strong>
+
+            </div>
+
+
+        </div>
+
+    </section>
+
+
+
+    <!-- ================= FULL DESCRIPTION ================= -->
+
+    <section class="full-description">
+
+
+        <h2>
+            Об автомобиле
+        </h2>
+
+
+        <p id="fullDescription">
+
+        </p>
+
+
+    </section>
+
+
+</main>
+
+
+<footer>
+
+    © 2026 DRIVE — Automotive Project
+
+</footer>
+
+
+
+<script>
+
+
+/* =========================================================
+   ДАННЫЕ АВТОМОБИЛЕЙ
+   ========================================================= */
+
+
+const cars = {
+
+
+    /* ================= BMW ================= */
+
+    "bmw-m4": {
+
+        name:
+            "BMW M4",
+
+        category:
+            "BMW M SERIES",
+
+        image:
+            "https://images.unsplash.com/photo-1555215695-3004980ad54e?auto=format&fit=crop&w=1600&q=90",
+
+        price:
+            "от €98 500",
+
+        description:
+            "BMW M4 — спортивное купе BMW M с высокой динамикой, агрессивным дизайном и характером настоящего спортивного автомобиля.",
+
+        power:
+            "480–530 л.с.",
+
+        acceleration:
+            "3,5–4,2 сек.",
+
+        topSpeed:
+            "250 км/ч*",
+
+        engine:
+            "3.0 л TwinPower Turbo",
+
+        torque:
+            "650 Н·м",
+
+        gearbox:
+            "6-МКПП / 8-АКПП",
+
+        drive:
+            "Задний / xDrive",
+
+        fuel:
+            "Бензин",
+
+        fullDescription:
+            "BMW M4 создан для тех, кто хочет получить сочетание спортивной управляемости, высокой мощности и возможности использовать автомобиль каждый день. В зависимости от версии автомобиль может оснащаться механической или автоматической коробкой передач, а также системой полного привода M xDrive. Версия Competition развивает до 510 л.с., а Competition с M xDrive — до 530 л.с."
+
+    },
+
+
+    /* ================= LAMBORGHINI ================= */
+
+    "lamborghini-huracan": {
+
+        name:
+            "Lamborghini Huracán",
+
+        category:
+            "LAMBORGHINI",
+
+        image:
+            "https://images.unsplash.com/photo-1544829099-b9a0c07fad1a?auto=format&fit=crop&w=1600&q=90",
+
+        price:
+            "Цена по запросу",
+
+        description:
+            "Lamborghini Huracán — итальянский суперкар с атмосферным V10 и фирменным экстремальным дизайном.",
+
+        power:
+            "до 640 л.с.",
+
+        acceleration:
+            "около 3,0 сек.",
+
+        topSpeed:
+            "325 км/ч",
+
+        engine:
+            "5.2 л V10",
+
+        torque:
+            "600 Н·м",
+
+        gearbox:
+            "7-ступенчатая",
+
+        drive:
+            "AWD / RWD",
+
+        fuel:
+            "Бензин",
+
+        fullDescription:
+            "Huracán стал одной из самых известных моделей Lamborghini. Автомобиль сочетает атмосферный десятицилиндровый двигатель, роботизированную коробку передач и экстремальный дизайн. В зависимости от модификации характеристики автомобиля отличаются."
+
+    },
+
+
+    /* ================= FERRARI ================= */
+
+    "ferrari-296": {
+
+        name:
+            "Ferrari 296 GTB",
+
+        category:
+            "FERRARI",
+
+        image:
+            "https://images.unsplash.com/photo-1592198084033-aade902d1aae?auto=format&fit=crop&w=1600&q=90",
+
+        price:
+            "Цена по запросу",
+
+        description:
+            "Ferrari 296 GTB — современный среднемоторный спортивный автомобиль с гибридной силовой установкой.",
+
+        power:
+            "830 л.с.",
+
+        acceleration:
+            "2,9 сек.",
+
+        topSpeed:
+            "330+ км/ч",
+
+        engine:
+            "3.0 л V6 Twin-Turbo + электромотор",
+
+        torque:
+            "740 Н·м",
+
+        gearbox:
+            "8-ступенчатая DCT",
+
+        drive:
+            "Задний",
+
+        fuel:
+            "Бензин / Hybrid",
+
+        fullDescription:
+            "Ferrari 296 GTB сочетает компактный V6 с двойным турбонаддувом и электрическую силовую установку. Такая архитектура позволяет получить высокую мощность и мгновенную реакцию на педаль газа."
+
+    },
+
+
+    /* ================= PORSCHE ================= */
+
+    "porsche-911": {
+
+        name:
+            "Porsche 911",
+
+        category:
+            "PORSCHE",
+
+        image:
+            "https://images.unsplash.com/photo-1503736334956-4c8f8e92946d?auto=format&fit=crop&w=1600&q=90",
+
+        price:
+            "Цена по запросу",
+
+        description:
+            "Porsche 911 — одна из самых узнаваемых спортивных моделей в истории автомобильной индустрии.",
+
+        power:
+            "зависит от версии",
+
+        acceleration:
+            "от ~3 сек.",
+
+        topSpeed:
+            "до 330+ км/ч",
+
+        engine:
+            "оппозитный 6-цилиндровый",
+
+        torque:
+            "зависит от версии",
+
+        gearbox:
+            "PDK / механическая",
+
+        drive:
+            "RWD / AWD",
+
+        fuel:
+            "Бензин",
+
+        fullDescription:
+            "Porsche 911 выпускается в большом количестве модификаций — от относительно комфортных Carrera до экстремальных GT3 и Turbo. Главная особенность модели — заднемоторная компоновка и характерная форма кузова."
+
+    },
+
+
+    /* ================= AUDI ================= */
+
+    "audi-r8": {
+
+        name:
+            "Audi R8",
+
+        category:
+            "AUDI SPORT",
+
+        image:
+            "https://images.unsplash.com/photo-1614200179396-2bdb77ebf81b?auto=format&fit=crop&w=1600&q=90",
+
+        price:
+            "Цена по запросу",
+
+        description:
+            "Audi R8 — среднемоторный суперкар с атмосферным V10 и фирменной системой полного привода quattro.",
+
+        power:
+            "до 620 л.с.",
+
+        acceleration:
+            "около 3,1 сек.",
+
+        topSpeed:
+            "331 км/ч",
+
+        engine:
+            "5.2 л V10",
+
+        torque:
+            "580 Н·м",
+
+        gearbox:
+            "7-ступенчатая S tronic",
+
+        drive:
+            "quattro",
+
+        fuel:
+            "Бензин",
+
+        fullDescription:
+            "Audi R8 построен вокруг атмосферного V10. Благодаря среднемоторной компоновке автомобиль обладает сбалансированным распределением массы и спортивной управляемостью."
+
+    },
+
+
+    /* ================= MERCEDES ================= */
+
+    "mercedes-amg": {
+
+        name:
+            "Mercedes-AMG GT",
+
+        category:
+            "MERCEDES-AMG",
+
+        image:
+            "https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?auto=format&fit=crop&w=1600&q=90",
+
+        price:
+            "Цена по запросу",
+
+        description:
+            "Mercedes-AMG GT — спортивное купе Mercedes-AMG с мощным V8 и роскошным интерьером.",
+
+        power:
+            "до 585 л.с.",
+
+        acceleration:
+            "около 3,2 сек.",
+
+        topSpeed:
+            "315 км/ч",
+
+        engine:
+            "4.0 л V8 Biturbo",
+
+        torque:
+            "800 Н·м",
+
+        gearbox:
+            "9-ступенчатая AMG SPEEDSHIFT",
+
+        drive:
+            "4MATIC+",
+
+        fuel:
+            "Бензин",
+
+        fullDescription:
+            "Mercedes-AMG GT сочетает характеристики спортивного автомобиля с комфортом автомобиля премиум-класса. Турбированный V8 обеспечивает высокий крутящий момент, а система полного привода позволяет эффективно передавать мощность на дорогу."
+
+    }
+
+};
+
+
+
+/* =========================================================
+   ПОЛУЧАЕМ АВТОМОБИЛЬ ИЗ URL
+   ========================================================= */
+
+
+const urlParams =
+    new URLSearchParams(
+        window.location.search
+    );
+
+
+const carId =
+    urlParams.get("car");
+
+
+const car =
+    cars[carId];
+
+
+
+/* =========================================================
+   ЕСЛИ АВТОМОБИЛЬ НАЙДЕН
+   ========================================================= */
+
+
+if (car) {
+
+
+    document.title =
+        car.name + " — DRIVE";
+
+
+    document.getElementById("carName")
+        .textContent =
+        car.name;
+
+
+    document.getElementById("carCategory")
+        .textContent =
+        car.category;
+
+
+    document.getElementById("carImage")
+        .src =
+        car.image;
+
+
+    document.getElementById("carImage")
+        .alt =
+        car.name;
+
+
+    document.getElementById("carDescription")
+        .textContent =
+        car.description;
+
+
+    document.getElementById("carPrice")
+        .textContent =
+        car.price;
+
+
+    document.getElementById("power")
+        .textContent =
+        car.power;
+
+
+    document.getElementById("acceleration")
+        .textContent =
+        car.acceleration;
+
+
+    document.getElementById("topSpeed")
+        .textContent =
+        car.topSpeed;
+
+
+    document.getElementById("engine")
+        .textContent =
+        car.engine;
+
+
+    document.getElementById("torque")
+        .textContent =
+        car.torque;
+
+
+    document.getElementById("gearbox")
+        .textContent =
+        car.gearbox;
+
+
+    document.getElementById("drive")
+        .textContent =
+        car.drive;
+
+
+    document.getElementById("fuel")
+        .textContent =
+        car.fuel;
+
+
+    document.getElementById("fullDescription")
+        .textContent =
+        car.fullDescription;
+
+}
+
+
+
+/* =========================================================
+   ЕСЛИ АВТОМОБИЛЬ НЕ НАЙДЕН
+   ========================================================= */
+
+
+else {
+
+    document.getElementById("carName")
+        .textContent =
+        "Автомобиль не найден";
+
+
+    document.getElementById("carDescription")
+        .textContent =
+        "К сожалению, такой автомобиль отсутствует в каталоге.";
+
+
+    document.getElementById("carPrice")
+        .textContent =
+        "";
+
+
+    document.getElementById("fullDescription")
+        .textContent =
+        "Вернитесь в каталог и выберите автомобиль.";
+
+}
+
+
+
+/* =========================================================
+   КНОПКА ПОКУПКИ
+   ========================================================= */
+
+
+function contactDealer() {
+
+    alert(
+        "Спасибо за интерес к " +
+        (car ? car.name : "автомобилю") +
+        "! Здесь позже можно разместить форму заявки."
+    );
+
+}
+
+
+</script>
+
+</body>
+
+</html>
